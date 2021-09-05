@@ -4,6 +4,7 @@ import {CorsHttpMethod, HttpMethod, HttpRoute, HttpRouteKey} from '@aws-cdk/aws-
 import * as route53 from '@aws-cdk/aws-route53';
 import * as targets from '@aws-cdk/aws-route53-targets';
 import * as certificateManager from '@aws-cdk/aws-certificatemanager';
+import {CfnOutput} from '@aws-cdk/core';
 
 const rootDomain = 'picopic.io';
 const apiDomain = `api.${rootDomain}`;
@@ -26,15 +27,21 @@ export class InfrastructureStack extends cdk.Stack {
       domainName: apiDomain
     });
 
-    new apigw.HttpApi(this, 'PicopicHttpApi', {
+    const httpApi = new apigw.HttpApi(this, 'PicopicHttpApi', {
       apiName: 'Picopic API',
       corsPreflight: {
-        allowOrigins: ["*"],
+        allowOrigins: [`https://${rootDomain}`],
         allowMethods: [CorsHttpMethod.GET],
       },
       defaultDomainMapping: {
         domainName: apiDomainName,
       }
+    });
+
+    new CfnOutput(this, 'PicopicHttpApiId', {
+      value: httpApi.httpApiId,
+      description: 'Picopic HTTP API Gateway',
+      exportName: 'PicopicHttpApiId',
     });
 
     new route53.ARecord(this, 'PicopicHttpApiARecord', {
