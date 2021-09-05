@@ -1,6 +1,6 @@
 import * as cdk from '@aws-cdk/core';
 import * as apigw from '@aws-cdk/aws-apigatewayv2';
-import {CorsHttpMethod} from '@aws-cdk/aws-apigatewayv2';
+import {CorsHttpMethod, HttpMethod, HttpRoute, HttpRouteKey} from '@aws-cdk/aws-apigatewayv2';
 import * as route53 from '@aws-cdk/aws-route53';
 import * as targets from '@aws-cdk/aws-route53-targets';
 import * as certificateManager from '@aws-cdk/aws-certificatemanager';
@@ -41,10 +41,10 @@ export class InfrastructureStack extends cdk.Stack {
       recordName: apiDomain,
       zone: hostedZone,
       target: route53.RecordTarget.fromAlias(
-          new targets.ApiGatewayv2DomainProperties(
-              apiDomainName.regionalDomainName,
-              apiDomainName.regionalHostedZoneId,
-          )
+        new targets.ApiGatewayv2DomainProperties(
+          apiDomainName.regionalDomainName,
+          apiDomainName.regionalHostedZoneId,
+        )
       ),
     });
   }
