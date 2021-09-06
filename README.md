@@ -1,14 +1,14 @@
-# Welcome to your CDK TypeScript project!
+# picopic-backend-infrastructure
 
-This is a blank project for TypeScript development with CDK.
+This project defines the backend infrastructure for Picopic.
+The infrastructure is defined as code using [AWS CDK](https://aws.amazon.com/cdk/).
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+The backend is hosted on AWS and makes use of the following services:
 
-## Useful commands
+* [Route 53](https://aws.amazon.com/route53/) for the DNS
+* [ACM](https://aws.amazon.com/certificate-manager/) for the TLS certificate
+* [API Gateway](https://aws.amazon.com/s3/) for the HTTP API
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+The architecture is based on microservices. Currently, the backend consists of the following services:
+
+* [Image optimization service](https://github.com/jmp/picopic-backend-optimization-service)
