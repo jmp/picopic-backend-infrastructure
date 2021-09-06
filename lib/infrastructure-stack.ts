@@ -1,10 +1,8 @@
 import * as cdk from '@aws-cdk/core';
 import * as apigw from '@aws-cdk/aws-apigatewayv2';
-import {CorsHttpMethod, HttpMethod, HttpRoute, HttpRouteKey} from '@aws-cdk/aws-apigatewayv2';
 import * as route53 from '@aws-cdk/aws-route53';
 import * as targets from '@aws-cdk/aws-route53-targets';
 import * as certificateManager from '@aws-cdk/aws-certificatemanager';
-import {CfnOutput} from '@aws-cdk/core';
 
 const rootDomain = 'picopic.io';
 const apiDomain = `api.${rootDomain}`;
@@ -31,14 +29,14 @@ export class InfrastructureStack extends cdk.Stack {
       apiName: 'Picopic API',
       corsPreflight: {
         allowOrigins: [`https://${rootDomain}`],
-        allowMethods: [CorsHttpMethod.GET],
+        allowMethods: [apigw.CorsHttpMethod.GET],
       },
       defaultDomainMapping: {
         domainName: apiDomainName,
       }
     });
 
-    new CfnOutput(this, 'PicopicHttpApiId', {
+    new cdk.CfnOutput(this, 'PicopicHttpApiId', {
       value: httpApi.httpApiId,
       description: 'Picopic HTTP API Gateway',
       exportName: 'PicopicHttpApiId',
