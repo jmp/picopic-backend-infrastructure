@@ -1,5 +1,7 @@
 # picopic-backend-infrastructure
 
+[![build](https://github.com/jmp/picopic-backend-infrastructure/actions/workflows/build.yml/badge.svg)](https://github.com/jmp/picopic-backend-infrastructure/actions/workflows/build.yml)
+
 This project defines the backend infrastructure for Picopic.
 The infrastructure is defined as code using [AWS CDK](https://aws.amazon.com/cdk/).
 
